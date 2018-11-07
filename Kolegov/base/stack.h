@@ -3,6 +3,8 @@
 
 const int MaxStackSize = 100;
 
+using namespace std;
+
 template <class T>
 class TStack
 {
@@ -22,6 +24,25 @@ public:
   {
     delete [] pMem;
   }
+
+  void Push(T elem)
+  {
+	  if (IsFull())
+		  throw "stack full";
+
+	  top++;
+	  pMem[top] = elem;
+  }
+  T Pop()
+  {
+	  if (IsEmpty())
+		  throw "Stack empty";
+	  top--;
+	  return pMem[top + 1];
+  }
+
+  int TStack::IsEmpty(void) const { return top == -1; }
+  int TStack::IsFull(void) const { return top == size - 1; }
 };
 
 #endif

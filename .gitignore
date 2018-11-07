@@ -28,3 +28,15 @@
 *.out
 *.app
 /Студенты/
+
+Kolegov/\.vs/
+
+Kolegov/base/Release/
+
+Kolegov/base/base\.vcxproj\.user
+
+Kolegov/base_test/Release/
+
+Kolegov/gtest/Release/
+
+Kolegov/gtest/gtest\.vcxproj\.user
