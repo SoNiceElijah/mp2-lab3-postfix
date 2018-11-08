@@ -41,8 +41,8 @@ public:
 	  return pMem[top + 1];
   }
 
-  int TStack::IsEmpty(void) const { return top == -1; }
-  int TStack::IsFull(void) const { return top == size - 1; }
+  int IsEmpty(void) const { return top == -1; }
+  int IsFull(void) const { return top == size - 1; }
 };
 
 #endif

@@ -162,9 +162,15 @@ bool TPostfix::TryParce(string s, double* res)
 		neInteger = s.substr(index + 1, s.length() - index);
 	}
 
+	if (integer.length() == 0)
+		return false;
+
 	form = 1;
 	for (int i = integer.length() - 1; i >= 0; i--)
 	{
+		if (integer[i] < '0' || integer[i] > '9')
+			return false;
+
 		*res += (integer[i] - '0') * form;
 		form *= 10;
 	}
@@ -172,6 +178,9 @@ bool TPostfix::TryParce(string s, double* res)
 	form = 0.1;
 	for (int i = 0; i < neInteger.length(); i++)
 	{
+		if (integer[i] < '0' || integer[i] > '9')
+			return false;
+
 		*res += (neInteger[i] - '0') * form;
 		form *= 0.1;
 	}

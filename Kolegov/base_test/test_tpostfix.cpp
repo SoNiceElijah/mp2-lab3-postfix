@@ -1,4 +1,4 @@
-#include "postfix.h"
+#include "postfix.cpp"
 #include <gtest.h>
 
 TEST(TPostfix, can_create_postfix)
