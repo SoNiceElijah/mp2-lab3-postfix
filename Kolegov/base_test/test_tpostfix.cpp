@@ -55,7 +55,7 @@ TEST(TPostfix, can_mult_bracket_on_bracket)
 	EXPECT_EQ(3.9, p.Calculate());
 }
 
-TEST(TPostfix, can_work_with_nested_bracket_on_bracket)
+TEST(TPostfix, can_work_with_nested_brackets)
 {
 	TPostfix p("(1+(2+(3/3)))*(1-2)");
 	p.ToPostfix();
