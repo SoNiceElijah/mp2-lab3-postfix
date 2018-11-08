@@ -47,6 +47,22 @@ TEST(TPostfix, can_not_create_postfix_with_wrong_brackets)
 	ASSERT_ANY_THROW(p.ToPostfix(););
 }
 
+TEST(TPostfix, can_mult_bracket_on_bracket)
+{
+	TPostfix p("(1+2/4/5-5)*(1-2)");
+	p.ToPostfix();
+
+	EXPECT_EQ(3.9, p.Calculate());
+}
+
+TEST(TPostfix, can_work_with_nested_bracket_on_bracket)
+{
+	TPostfix p("(1+(2+(3/3)))*(1-2)");
+	p.ToPostfix();
+
+	EXPECT_EQ(-4, p.Calculate());
+}
+
 TEST(TPostfix, can_not_calculate_expression_with_not_enough_opernands)
 {
 	TPostfix p("1++1");

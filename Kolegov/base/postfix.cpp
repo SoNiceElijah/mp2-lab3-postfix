@@ -18,12 +18,37 @@ string TPostfix::ToPostfix(string localInfix)
 		
 	}
 
-	//Если есть скобки по краям, то убираем их
-	if(localInfix[0] == '(' && localInfix[localInfix.length()-1]==')')
-		localInfix = localInfix.substr(1,localInfix.length()-2);
+	//Если есть подозрение на ненужные скобки по краям
+	if (localInfix[0] == '(')
+	{
+		int count = 1;
+		int i;
+		for (i = 1; i < localInfix.length(); i++)
+		{
+			if (localInfix[i] == '(')
+				count++;
+
+
+			if (localInfix[i] == ')')
+				count--;
+
+			//Если первая скобка закрылась до конца цикла, то ничего убирать покраям уже не надо
+			if (count == 0)
+				break;
+		}
+		
+		if (i == localInfix.length() - 1)
+			localInfix = localInfix.substr(1, localInfix.length() - 2);
+
+		//Скобки стоят неправильно
+		if (count != 0)
+			throw "Error";
+	}
+
+
 
 	int operatorIndex = -1;
-	bool insideBrackets = false;
+	int insideBrackets = 0;
 
 	char triggers[] = { '+','-' };
 
@@ -36,19 +61,19 @@ string TPostfix::ToPostfix(string localInfix)
 		for (int i = localInfix.length()-1; i >= 0; i--)
 		{
 			if (localInfix[i] == ')') {
-				insideBrackets = true;
+				insideBrackets++;
 				continue;
 			}
 			if (localInfix[i] == '(') {
 
 				//Скобки стоят неправильно
-				if (!insideBrackets)
+				if (insideBrackets == 0)
 					throw "Error";
 
-				insideBrackets = false;
+				insideBrackets--;
 				continue;
 			}
-			if (((localInfix[i] == triggers[0]) || (localInfix[i] == triggers[1])) && !insideBrackets)
+			if (((localInfix[i] == triggers[0]) || (localInfix[i] == triggers[1])) && (insideBrackets==0))
 			{
 				operatorIndex = i;
 				break;
@@ -64,7 +89,7 @@ string TPostfix::ToPostfix(string localInfix)
 	} while (operatorIndex == -1 && j != 2);
 
 	//Если вышли из цикла, но все еще внутри скобок, то видимо кто-то скобки направильно поставил 
-	if (insideBrackets)
+	if (insideBrackets != 0)
 		throw "Error";
 
 	//Все еще не нашли
