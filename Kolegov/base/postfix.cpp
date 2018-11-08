@@ -33,13 +33,18 @@ string TPostfix::ToPostfix(string localInfix)
 	do
 	{
 		//Ищем самые низкие по приоритету операторы, игнорируя скобки
-		for (int i = 0; i < localInfix.length(); i++)
+		for (int i = localInfix.length()-1; i >= 0; i--)
 		{
-			if (localInfix[i] == '(') {
+			if (localInfix[i] == ')') {
 				insideBrackets = true;
 				continue;
 			}
-			if (localInfix[i] == ')') {
+			if (localInfix[i] == '(') {
+
+				//Скобки стоят неправильно
+				if (!insideBrackets)
+					throw "Error";
+
 				insideBrackets = false;
 				continue;
 			}
